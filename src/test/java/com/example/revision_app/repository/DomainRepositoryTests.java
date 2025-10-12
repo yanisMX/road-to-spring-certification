@@ -64,4 +64,21 @@ public class DomainRepositoryTests {
         assertThat(domainRepository.findById(domain.getId()).isPresent()).isFalse();
     }
 
+    @Test
+    void shouldUpdateDomain(){
+        Domain domain = new Domain();
+        domain.setName("Original Name");
+        domain.setDescription("Original Desc");
+        Domain savedDomain = domainRepository.save(domain);
+
+        savedDomain.setName("Updated Name");
+        savedDomain.setDescription("Updated Desc");
+        Domain updatedDomain = domainRepository.save(savedDomain);
+
+        assertThat(updatedDomain).isNotNull();
+        assertThat(updatedDomain.getId()).isEqualTo(savedDomain.getId());
+        assertThat(updatedDomain.getName()).isEqualTo("Updated Name");
+        assertThat(updatedDomain.getDescription()).isEqualTo("Updated Desc");
+    }
+
 }

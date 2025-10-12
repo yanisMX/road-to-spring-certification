@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 /*
@@ -46,9 +47,10 @@ public class DomainController {
     @PutMapping("/{id}")
     public ResponseEntity<Domain> updateDomain(
             @PathVariable Long id,
-            @Valid @RequestBody Domain domain
+            @Valid @RequestBody Domain domain,
+            Principal principal
     ) {
-        Domain updatedDomain = domainService.update(id, domain);
+        Domain updatedDomain = domainService.update(id, domain.getName(), domain.getDescription(), principal.getName());
         return ResponseEntity.ok(updatedDomain);  // 200 OK
     }
 

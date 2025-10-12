@@ -1,7 +1,6 @@
 package com.example.revision_app.service;
 
 import com.example.revision_app.model.Domain;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -15,5 +14,5 @@ public interface DomainService {
 
     void deleteById(Long id);
 
-    Domain update(Long id, @RequestBody Domain domain);
+    Domain update(Long id, String newName, String newDescription, String username);
 }

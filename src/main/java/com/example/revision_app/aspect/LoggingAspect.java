@@ -2,7 +2,10 @@ package com.example.revision_app.aspect;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
@@ -42,5 +45,25 @@ public class LoggingAspect {
                     throwable);
             throw throwable;
         }
+    }
+
+    @AfterThrowing(
+            pointcut = "execution(* com.example.revision_app.repository..*(..))",
+            throwing = "ex"
+    )
+    public void logRepoMethodWhenReturningAnExc(JoinPoint joinPoint, Exception ex) {
+        String methodName = joinPoint.getSignature().toShortString();
+        Object[] args = joinPoint.getArgs();
+
+        log.error("[ERROR] Repository method {} with args {} threw exception: {}",
+                methodName, args, ex.getMessage(), ex);
+    }
+
+    @AfterReturning(pointcut = "execution(* com.example.revision_app.repository..*(..))")
+    public void logRepoMethodExecution(JoinPoint joinPoint){
+        String methodName = joinPoint.getSignature().toShortString();
+        Object[] args = joinPoint.getArgs();
+        log.info("[EXITING] method {} with args {} without issues", methodName, args);
+
     }
 }
