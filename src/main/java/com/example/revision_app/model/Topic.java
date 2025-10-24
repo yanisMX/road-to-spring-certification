@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "topic")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Topic {
 
@@ -27,4 +26,9 @@ public class Topic {
     @JoinColumn(name = "domain_id", referencedColumnName = "domain_id")
     private Domain domain;
 
+    public Topic(String name, String desc, Domain domain) {
+        this.name = name;
+        this.description = desc;
+        this.domain = domain;
+    }
 }

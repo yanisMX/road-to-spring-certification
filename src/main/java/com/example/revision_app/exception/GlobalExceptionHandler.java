@@ -28,7 +28,7 @@ elle sera interceptée et un ErrorResponse structuré sera renvoyé
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(DomainNotFoundException.class)
+    @ExceptionHandler(exception = DomainNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleDomainNotFound(
             DomainNotFoundException ex,
             WebRequest request

@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface TopicRepository extends JpaRepository<Topic, Long> {
-     List<Topic> findByDomain(Domain domain);
+     List<Topic> findByDomain(Optional<Domain> domain);
 
     Optional<Topic> findByName(String name);
 
